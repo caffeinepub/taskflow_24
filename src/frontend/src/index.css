@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap");
+
+@font-face {
+  font-family: "Parisienne";
+  src: url("/assets/fonts/Parisienne.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Figtree";
+  src: url("/assets/fonts/Figtree.woff2") format("woff2");
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Warm cream background */
+    --background: 0.975 0.012 55;
+    --foreground: 0.24 0.028 30;
+
+    --card: 0.995 0.006 50;
+    --card-foreground: 0.24 0.028 30;
+
+    --popover: 0.995 0.006 50;
+    --popover-foreground: 0.24 0.028 30;
+
+    /* Deep rose primary */
+    --primary: 0.58 0.17 10;
+    --primary-foreground: 0.99 0.003 0;
+
+    /* Soft blush secondary */
+    --secondary: 0.94 0.035 20;
+    --secondary-foreground: 0.5 0.1 10;
+
+    /* Warm muted */
+    --muted: 0.95 0.018 50;
+    --muted-foreground: 0.55 0.04 30;
+
+    /* Dusty rose accent */
+    --accent: 0.9 0.048 18;
+    --accent-foreground: 0.4 0.1 10;
+
+    --destructive: 0.58 0.2 25;
+    --destructive-foreground: 0.99 0.003 0;
+
+    --border: 0.91 0.022 38;
+    --input: 0.93 0.02 40;
+    --ring: 0.58 0.17 10;
+
+    --radius: 0.75rem;
+
+    --chart-1: 0.58 0.17 10;
+    --chart-2: 0.68 0.14 140;
+    --chart-3: 0.72 0.14 65;
+    --chart-4: 0.62 0.18 300;
+    --chart-5: 0.62 0.15 230;
+
+    --sidebar: 0.99 0.008 45;
+    --sidebar-foreground: 0.24 0.028 30;
+    --sidebar-primary: 0.58 0.17 10;
+    --sidebar-primary-foreground: 0.99 0.003 0;
+    --sidebar-accent: 0.93 0.03 20;
+    --sidebar-accent-foreground: 0.5 0.1 10;
+    --sidebar-border: 0.91 0.022 38;
+    --sidebar-ring: 0.58 0.17 10;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+}
+
+@layer utilities {
+  .font-script {
+    font-family: "Parisienne", cursive;
+  }
+
+  .glow-card {
+    box-shadow: 0 2px 12px oklch(0.58 0.17 10 / 0.08), 0 1px 4px
+      oklch(0.24 0.028 30 / 0.04);
+  }
+
+  .glow-card-hover {
+    box-shadow: 0 6px 24px oklch(0.58 0.17 10 / 0.14), 0 2px 8px
+      oklch(0.24 0.028 30 / 0.06);
+  }
+
+  .page-enter {
+    animation: pageEnter 0.35s ease-out both;
+  }
+
+  @keyframes pageEnter {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-overlay {
+    background: linear-gradient(
+      to bottom,
+      oklch(0.24 0.028 30 / 0.15) 0%,
+      oklch(0.24 0.028 30 / 0.55) 100%
+    );
+  }
+
+  .star-filled {
+    color: oklch(0.75 0.18 65);
+  }
+
+  .star-empty {
+    color: oklch(0.8 0.06 50);
+  }
+}
