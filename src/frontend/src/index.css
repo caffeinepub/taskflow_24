@@ -1,16 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 
 @font-face {
-  font-family: "Parisienne";
-  src: url("/assets/fonts/Parisienne.woff2") format("woff2");
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Figtree";
-  src: url("/assets/fonts/Figtree.woff2") format("woff2");
-  font-weight: 300 900;
+  font-family: "Plus Jakarta Sans";
+  src: url("/assets/fonts/PlusJakartaSans.woff2") format("woff2");
+  font-weight: 300 700;
   font-display: swap;
 }
 
@@ -20,55 +13,64 @@
 
 @layer base {
   :root {
-    /* Warm cream background */
-    --background: 0.975 0.012 55;
-    --foreground: 0.24 0.028 30;
+    /* Page bg: #F3F6F8 — very light cool gray-blue */
+    --background: 0.966 0.006 220;
+    /* Card: white */
+    --foreground: 0.16 0.025 250;
 
-    --card: 0.995 0.006 50;
-    --card-foreground: 0.24 0.028 30;
+    --card: 1 0 0;
+    --card-foreground: 0.16 0.025 250;
 
-    --popover: 0.995 0.006 50;
-    --popover-foreground: 0.24 0.028 30;
+    --popover: 1 0 0;
+    --popover-foreground: 0.16 0.025 250;
 
-    /* Deep rose primary */
-    --primary: 0.58 0.17 10;
-    --primary-foreground: 0.99 0.003 0;
+    /* Primary teal-cyan #18A6B8 */
+    --primary: 0.64 0.12 195;
+    --primary-foreground: 1 0 0;
 
-    /* Soft blush secondary */
-    --secondary: 0.94 0.035 20;
-    --secondary-foreground: 0.5 0.1 10;
+    --secondary: 0.95 0.008 220;
+    --secondary-foreground: 0.34 0.02 250;
 
-    /* Warm muted */
-    --muted: 0.95 0.018 50;
-    --muted-foreground: 0.55 0.04 30;
+    /* Muted #6B7280 */
+    --muted: 0.95 0.006 220;
+    --muted-foreground: 0.52 0.015 250;
 
-    /* Dusty rose accent */
-    --accent: 0.9 0.048 18;
-    --accent-foreground: 0.4 0.1 10;
+    --accent: 0.92 0.015 195;
+    --accent-foreground: 0.64 0.12 195;
 
-    --destructive: 0.58 0.2 25;
-    --destructive-foreground: 0.99 0.003 0;
+    /* Destructive red */
+    --destructive: 0.48 0.17 25;
+    --destructive-foreground: 1 0 0;
 
-    --border: 0.91 0.022 38;
-    --input: 0.93 0.02 40;
-    --ring: 0.58 0.17 10;
+    /* Border #E5E7EB */
+    --border: 0.91 0.007 250;
+    --input: 0.93 0.006 250;
+    --ring: 0.64 0.12 195;
 
     --radius: 0.75rem;
 
-    --chart-1: 0.58 0.17 10;
-    --chart-2: 0.68 0.14 140;
-    --chart-3: 0.72 0.14 65;
-    --chart-4: 0.62 0.18 300;
-    --chart-5: 0.62 0.15 230;
+    /* Status colors */
+    --status-present-bg: 0.95 0.055 145;
+    --status-present-fg: 0.5 0.13 145;
+    --status-late-bg: 0.97 0.055 85;
+    --status-late-fg: 0.52 0.13 75;
+    --status-absent-bg: 0.94 0.055 20;
+    --status-absent-fg: 0.48 0.17 25;
 
-    --sidebar: 0.99 0.008 45;
-    --sidebar-foreground: 0.24 0.028 30;
-    --sidebar-primary: 0.58 0.17 10;
-    --sidebar-primary-foreground: 0.99 0.003 0;
-    --sidebar-accent: 0.93 0.03 20;
-    --sidebar-accent-foreground: 0.5 0.1 10;
-    --sidebar-border: 0.91 0.022 38;
-    --sidebar-ring: 0.58 0.17 10;
+    --chart-1: 0.64 0.12 195;
+    --chart-2: 0.5 0.13 145;
+    --chart-3: 0.52 0.13 75;
+    --chart-4: 0.48 0.17 25;
+    --chart-5: 0.62 0.12 270;
+
+    --sidebar: 1 0 0;
+    --sidebar-foreground: 0.34 0.02 250;
+    --sidebar-primary: 0.64 0.12 195;
+    --sidebar-primary-foreground: 1 0 0;
+    --sidebar-accent: 0.92 0.015 195;
+    --sidebar-accent-foreground: 0.64 0.12 195;
+    --sidebar-border: 0.91 0.007 250;
+    --sidebar-ring: 0.64 0.12 195;
   }
 
   * {
@@ -82,28 +84,37 @@
 }
 
 @layer utilities {
-  .font-script {
-    font-family: "Parisienne", cursive;
+  .status-present {
+    background-color: oklch(var(--status-present-bg));
+    color: oklch(var(--status-present-fg));
+  }
+  .status-late {
+    background-color: oklch(var(--status-late-bg));
+    color: oklch(var(--status-late-fg));
+  }
+  .status-absent {
+    background-color: oklch(var(--status-absent-bg));
+    color: oklch(var(--status-absent-fg));
   }
 
-  .glow-card {
-    box-shadow: 0 2px 12px oklch(0.58 0.17 10 / 0.08), 0 1px 4px
-      oklch(0.24 0.028 30 / 0.04);
+  .card-shadow {
+    box-shadow: 0 1px 3px oklch(0.16 0.025 250 / 0.07), 0 1px 2px
+      oklch(0.16 0.025 250 / 0.04);
   }
 
-  .glow-card-hover {
-    box-shadow: 0 6px 24px oklch(0.58 0.17 10 / 0.14), 0 2px 8px
-      oklch(0.24 0.028 30 / 0.06);
+  .card-shadow-md {
+    box-shadow: 0 4px 12px oklch(0.16 0.025 250 / 0.08), 0 1px 3px
+      oklch(0.16 0.025 250 / 0.05);
   }
 
   .page-enter {
-    animation: pageEnter 0.35s ease-out both;
+    animation: pageEnter 0.3s ease-out both;
   }
 
   @keyframes pageEnter {
     from {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(8px);
     }
     to {
       opacity: 1;
@@ -111,19 +122,13 @@
     }
   }
 
-  .hero-overlay {
-    background: linear-gradient(
-      to bottom,
-      oklch(0.24 0.028 30 / 0.15) 0%,
-      oklch(0.24 0.028 30 / 0.55) 100%
-    );
+  .top-bar {
+    border-bottom: 1px solid oklch(var(--border));
+    background: oklch(var(--card));
   }
 
-  .star-filled {
-    color: oklch(0.75 0.18 65);
-  }
-
-  .star-empty {
-    color: oklch(0.8 0.06 50);
+  .sidebar-rail {
+    border-right: 1px solid oklch(var(--border));
+    background: oklch(var(--card));
   }
 }

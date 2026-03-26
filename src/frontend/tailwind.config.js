@@ -10,14 +10,12 @@ export default {
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
+      screens: { "2xl": "1400px" },
     },
     extend: {
       fontFamily: {
-        display: ["Parisienne", "cursive"],
-        body: ["Figtree", "system-ui", "sans-serif"],
+        display: ["Inter", "system-ui", "sans-serif"],
+        body: ["Inter", "system-ui", "sans-serif"],
       },
       colors: {
         border: "oklch(var(--border))",
@@ -77,12 +75,10 @@ export default {
         sm: "calc(var(--radius) - 4px)",
         xl: "1rem",
         "2xl": "1.5rem",
-        "3xl": "2rem",
       },
       boxShadow: {
-        xs: "0 1px 2px 0 oklch(0.24 0.028 30 / 0.04)",
-        glow: "0 2px 12px oklch(0.58 0.17 10 / 0.08), 0 1px 4px oklch(0.24 0.028 30 / 0.04)",
-        "glow-hover": "0 6px 24px oklch(0.58 0.17 10 / 0.14), 0 2px 8px oklch(0.24 0.028 30 / 0.06)",
+        card: "0 1px 3px oklch(0.16 0.025 250 / 0.07), 0 1px 2px oklch(0.16 0.025 250 / 0.04)",
+        "card-md": "0 4px 12px oklch(0.16 0.025 250 / 0.08), 0 1px 3px oklch(0.16 0.025 250 / 0.05)",
       },
       keyframes: {
         "accordion-down": {

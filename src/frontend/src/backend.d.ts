@@ -61,6 +61,7 @@ export interface Tip {
 }
 
 export interface backendInterface {
+    _initializeAccessControlWithSecret(secret: string): Promise<void>;
     addProduct(name: string, brand: string, category: ProductCategory, notes: string): Promise<bigint>;
     getAllProducts(): Promise<Array<Product>>;
     updateProduct(id: bigint, name: string, brand: string, category: ProductCategory, notes: string): Promise<void>;

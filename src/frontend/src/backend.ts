@@ -109,6 +109,7 @@ export enum TaskPriority {
     Medium = "Medium"
 }
 export interface backendInterface {
+    _initializeAccessControlWithSecret(secret: string): Promise<void>;
     createTask(title: string, priority: TaskPriority, category: TaskCategory, dueDate: bigint | null): Promise<bigint>;
     deleteTask(id: bigint): Promise<void>;
     getAllTasks(): Promise<Array<Task>>;
@@ -122,6 +123,9 @@ export interface backendInterface {
 import type { Task as _Task, TaskCategory as _TaskCategory, TaskPriority as _TaskPriority } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
+    async _initializeAccessControlWithSecret(secret: string): Promise<void> {
+        // no-op for compatibility
+    }
     async createTask(arg0: string, arg1: TaskPriority, arg2: TaskCategory, arg3: bigint | null): Promise<bigint> {
         if (this.processError) {
             try {

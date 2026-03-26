@@ -1,25 +1,29 @@
-# GlowTrack - Face Care App
+# AttendAI - AI Attendance System
 
 ## Current State
-The project is a to-do list app (TaskFlow) with task management backend and frontend.
+New project. No existing code.
 
 ## Requested Changes (Diff)
 
 ### Add
-- Skincare product manager (name, brand, category: cleanser/toner/serum/moisturizer/SPF/other, notes)
-- Morning and evening routine builder (ordered steps referencing products)
-- Daily skin journal (date, skin condition rating 1-5, notes, concerns)
-- Tips section with curated skincare advice by skin type
-- Dashboard showing today's routines and recent journal entries
+- Dashboard with KPI cards: Total Employees, Present Today, Late Arrivals, Absences
+- Employee management: add, view, and list employees
+- Attendance check-in/check-out with timestamp tracking
+- AI-verified status labels on attendance records
+- Attendance records table with status badges (Present, Late, Absent)
+- Donut chart for today's attendance breakdown
+- Line chart for 30-day attendance trend
+- Real-time activity feed showing recent check-ins
+- Quick actions panel: Approve Requests, Generate Report, Add Employee, Shift Management
+- Admin authorization with role-based access
 
 ### Modify
-- Replace entire backend with face care data models
-- Replace entire frontend with face care UI
+- N/A (new project)
 
 ### Remove
-- All to-do/task related backend and frontend code
+- N/A (new project)
 
 ## Implementation Plan
-1. Generate Motoko backend with Products, Routines, JournalEntries types and CRUD
-2. Build React frontend with Dashboard, Products, Routines, SkinJournal, Tips pages
-3. Mobile-friendly bottom navigation
+1. Backend: Employee records, attendance check-in/out, attendance queries by date, stats aggregation
+2. Frontend: Dashboard page, Employees page, Records page, Analytics page
+3. Components: authorization for admin login
