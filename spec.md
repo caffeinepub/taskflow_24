@@ -1,29 +1,29 @@
-# AttendAI - AI Attendance System
+# Vignan Nirula Attendance System
 
 ## Current State
-New project. No existing code.
+New project — no existing files.
 
 ## Requested Changes (Diff)
 
 ### Add
-- Dashboard with KPI cards: Total Employees, Present Today, Late Arrivals, Absences
-- Employee management: add, view, and list employees
-- Attendance check-in/check-out with timestamp tracking
-- AI-verified status labels on attendance records
-- Attendance records table with status badges (Present, Late, Absent)
-- Donut chart for today's attendance breakdown
-- Line chart for 30-day attendance trend
-- Real-time activity feed showing recent check-ins
-- Quick actions panel: Approve Requests, Generate Report, Add Employee, Shift Management
-- Admin authorization with role-based access
+- Landing page with college branding (Vignan Nirula) and two portal entry buttons: Student and Admin
+- Student Portal: Registration (with face capture via camera) and Login (with face verification)
+- Admin Portal: Login with username/password
+- Student dashboard: profile, attendance records, leave requests
+- Admin dashboard: manage students, view attendance, approve leave requests, mark attendance
+- Face verification flow: capture photo during registration, verify face on login
+- College details section on landing page (about, departments, contact)
+- Role-based access control
 
 ### Modify
-- N/A (new project)
+N/A
 
 ### Remove
-- N/A (new project)
+N/A
 
 ## Implementation Plan
-1. Backend: Employee records, attendance check-in/out, attendance queries by date, stats aggregation
-2. Frontend: Dashboard page, Employees page, Records page, Analytics page
-3. Components: authorization for admin login
+1. Select authorization and camera components
+2. Generate backend with student/admin roles, attendance records, leave requests, face data storage
+3. Build frontend: landing page, student portal (register + login with camera), admin portal (login, dashboard)
+4. Wire camera component for face capture on registration and login
+5. Implement role-based routing

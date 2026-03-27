@@ -1,9 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
-
 @font-face {
   font-family: "Plus Jakarta Sans";
   src: url("/assets/fonts/PlusJakartaSans.woff2") format("woff2");
   font-weight: 300 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/assets/fonts/PlayfairDisplay.woff2") format("woff2");
+  font-weight: 400 800;
   font-display: swap;
 }
 
@@ -13,64 +18,54 @@
 
 @layer base {
   :root {
-    /* Page bg: #F3F6F8 — very light cool gray-blue */
-    --background: 0.966 0.006 220;
-    /* Card: white */
-    --foreground: 0.16 0.025 250;
-
-    --card: 1 0 0;
-    --card-foreground: 0.16 0.025 250;
-
-    --popover: 1 0 0;
-    --popover-foreground: 0.16 0.025 250;
-
-    /* Primary teal-cyan #18A6B8 */
-    --primary: 0.64 0.12 195;
+    /* Deep navy blue primary */
+    --primary: 0.28 0.09 255;
     --primary-foreground: 1 0 0;
 
-    --secondary: 0.95 0.008 220;
-    --secondary-foreground: 0.34 0.02 250;
+    /* Gold/amber accent */
+    --accent: 0.78 0.15 75;
+    --accent-foreground: 0.15 0.04 255;
 
-    /* Muted #6B7280 */
-    --muted: 0.95 0.006 220;
-    --muted-foreground: 0.52 0.015 250;
+    /* Light cool gray-blue background */
+    --background: 0.97 0.005 255;
+    --foreground: 0.18 0.04 255;
 
-    --accent: 0.92 0.015 195;
-    --accent-foreground: 0.64 0.12 195;
+    --card: 1 0 0;
+    --card-foreground: 0.18 0.04 255;
 
-    /* Destructive red */
+    --popover: 1 0 0;
+    --popover-foreground: 0.18 0.04 255;
+
+    --secondary: 0.93 0.01 255;
+    --secondary-foreground: 0.28 0.09 255;
+
+    --muted: 0.94 0.008 255;
+    --muted-foreground: 0.52 0.02 255;
+
     --destructive: 0.48 0.17 25;
     --destructive-foreground: 1 0 0;
 
-    /* Border #E5E7EB */
-    --border: 0.91 0.007 250;
-    --input: 0.93 0.006 250;
-    --ring: 0.64 0.12 195;
+    --border: 0.9 0.01 255;
+    --input: 0.92 0.01 255;
+    --ring: 0.28 0.09 255;
 
-    --radius: 0.75rem;
+    --radius: 0.625rem;
 
-    /* Status colors */
-    --status-present-bg: 0.95 0.055 145;
-    --status-present-fg: 0.5 0.13 145;
-    --status-late-bg: 0.97 0.055 85;
-    --status-late-fg: 0.52 0.13 75;
-    --status-absent-bg: 0.94 0.055 20;
-    --status-absent-fg: 0.48 0.17 25;
+    /* Navy sidebar */
+    --sidebar: 0.2 0.07 255;
+    --sidebar-foreground: 0.95 0.005 255;
+    --sidebar-primary: 0.78 0.15 75;
+    --sidebar-primary-foreground: 0.15 0.04 255;
+    --sidebar-accent: 0.28 0.09 255;
+    --sidebar-accent-foreground: 0.95 0.005 255;
+    --sidebar-border: 0.32 0.07 255;
+    --sidebar-ring: 0.78 0.15 75;
 
-    --chart-1: 0.64 0.12 195;
-    --chart-2: 0.5 0.13 145;
-    --chart-3: 0.52 0.13 75;
+    --chart-1: 0.28 0.09 255;
+    --chart-2: 0.78 0.15 75;
+    --chart-3: 0.55 0.13 145;
     --chart-4: 0.48 0.17 25;
-    --chart-5: 0.62 0.12 270;
-
-    --sidebar: 1 0 0;
-    --sidebar-foreground: 0.34 0.02 250;
-    --sidebar-primary: 0.64 0.12 195;
-    --sidebar-primary-foreground: 1 0 0;
-    --sidebar-accent: 0.92 0.015 195;
-    --sidebar-accent-foreground: 0.64 0.12 195;
-    --sidebar-border: 0.91 0.007 250;
-    --sidebar-ring: 0.64 0.12 195;
+    --chart-5: 0.62 0.12 300;
   }
 
   * {
@@ -85,26 +80,40 @@
 
 @layer utilities {
   .status-present {
-    background-color: oklch(var(--status-present-bg));
-    color: oklch(var(--status-present-fg));
-  }
-  .status-late {
-    background-color: oklch(var(--status-late-bg));
-    color: oklch(var(--status-late-fg));
+    background-color: oklch(0.94 0.08 145);
+    color: oklch(0.4 0.13 145);
   }
   .status-absent {
-    background-color: oklch(var(--status-absent-bg));
-    color: oklch(var(--status-absent-fg));
+    background-color: oklch(0.94 0.07 25);
+    color: oklch(0.42 0.17 25);
+  }
+  .status-late {
+    background-color: oklch(0.95 0.08 75);
+    color: oklch(0.5 0.14 60);
   }
 
-  .card-shadow {
-    box-shadow: 0 1px 3px oklch(0.16 0.025 250 / 0.07), 0 1px 2px
-      oklch(0.16 0.025 250 / 0.04);
+  .navy-gradient {
+    background: linear-gradient(
+      135deg,
+      oklch(0.22 0.09 255) 0%,
+      oklch(0.32 0.1 260) 100%
+    );
   }
 
-  .card-shadow-md {
-    box-shadow: 0 4px 12px oklch(0.16 0.025 250 / 0.08), 0 1px 3px
-      oklch(0.16 0.025 250 / 0.05);
+  .gold-gradient {
+    background: linear-gradient(
+      135deg,
+      oklch(0.78 0.15 75) 0%,
+      oklch(0.72 0.16 65) 100%
+    );
+  }
+
+  .portal-card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .portal-card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px oklch(0.22 0.09 255 / 0.2);
   }
 
   .page-enter {
@@ -114,21 +123,11 @@
   @keyframes pageEnter {
     from {
       opacity: 0;
-      transform: translateY(8px);
+      transform: translateY(10px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
     }
-  }
-
-  .top-bar {
-    border-bottom: 1px solid oklch(var(--border));
-    background: oklch(var(--card));
-  }
-
-  .sidebar-rail {
-    border-right: 1px solid oklch(var(--border));
-    background: oklch(var(--card));
   }
 }

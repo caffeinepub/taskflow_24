@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Inter", "system-ui", "sans-serif"],
-        body: ["Inter", "system-ui", "sans-serif"],
+        display: ["Playfair Display", "Georgia", "serif"],
+        body: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
       },
       colors: {
         border: "oklch(var(--border))",
@@ -77,8 +77,9 @@ export default {
         "2xl": "1.5rem",
       },
       boxShadow: {
-        card: "0 1px 3px oklch(0.16 0.025 250 / 0.07), 0 1px 2px oklch(0.16 0.025 250 / 0.04)",
-        "card-md": "0 4px 12px oklch(0.16 0.025 250 / 0.08), 0 1px 3px oklch(0.16 0.025 250 / 0.05)",
+        card: "0 1px 4px oklch(0.22 0.09 255 / 0.08), 0 1px 2px oklch(0.22 0.09 255 / 0.04)",
+        "card-md": "0 4px 16px oklch(0.22 0.09 255 / 0.1), 0 1px 3px oklch(0.22 0.09 255 / 0.05)",
+        "card-lg": "0 8px 32px oklch(0.22 0.09 255 / 0.15)",
       },
       keyframes: {
         "accordion-down": {

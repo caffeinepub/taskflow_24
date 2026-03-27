@@ -1,10 +1,9 @@
 import Map "mo:core/Map";
-import Runtime "mo:core/Runtime";
 import Time "mo:core/Time";
 
 actor {
 
-  // ── Migration: preserve old task stable variables so they can be discarded ──
+  // ── Migration stubs: preserve old stable variables so they can be discarded ──
   type OldTaskPriority = { #High; #Medium; #Low };
   type OldTaskCategory = { #Work; #Personal; #Other };
   type OldTask = {
@@ -16,118 +15,141 @@ actor {
     completed : Bool;
     createdAt : Int;
   };
+  type OldProductCategory = { #Cleanser; #Toner; #Serum; #Moisturizer; #SPF; #Other };
+  type OldProduct = { id : Nat; name : Text; brand : Text; category : OldProductCategory; notes : Text };
+  type OldRoutineStep = { productId : Nat; instructions : Text; order : Nat };
+  type OldJournalEntry = { id : Nat; date : Text; skinCondition : Nat; notes : Text; concerns : Text; createdAt : Int };
+  type OldSkinType = { #All; #Oily; #Dry; #Combination; #Sensitive };
+  type OldTip = { id : Nat; title : Text; content : Text; skinType : OldSkinType };
+
   stable var nextTaskId : Nat = 0;
   stable var tasks : Map.Map<Nat, OldTask> = Map.empty<Nat, OldTask>();
-
-  // ── Face care types ──
-  type ProductCategory = { #Cleanser; #Toner; #Serum; #Moisturizer; #SPF; #Other };
-
-  type Product = {
-    id : Nat;
-    name : Text;
-    brand : Text;
-    category : ProductCategory;
-    notes : Text;
-  };
-
-  type RoutineStep = {
-    productId : Nat;
-    instructions : Text;
-    order : Nat;
-  };
-
-  type RoutineType = { #Morning; #Evening };
-
-  type JournalEntry = {
-    id : Nat;
-    date : Text;
-    skinCondition : Nat;
-    notes : Text;
-    concerns : Text;
-    createdAt : Int;
-  };
-
-  type SkinType = { #All; #Oily; #Dry; #Combination; #Sensitive };
-
-  type Tip = {
-    id : Nat;
-    title : Text;
-    content : Text;
-    skinType : SkinType;
-  };
-
   stable var nextProductId : Nat = 0;
   stable var nextJournalId : Nat = 0;
-  stable var products : Map.Map<Nat, Product> = Map.empty<Nat, Product>();
-  stable var journalEntries : Map.Map<Nat, JournalEntry> = Map.empty<Nat, JournalEntry>();
-  stable var morningRoutine : [RoutineStep] = [];
-  stable var eveningRoutine : [RoutineStep] = [];
+  stable var products : Map.Map<Nat, OldProduct> = Map.empty<Nat, OldProduct>();
+  stable var journalEntries : Map.Map<Nat, OldJournalEntry> = Map.empty<Nat, OldJournalEntry>();
+  stable var morningRoutine : [OldRoutineStep] = [];
+  stable var eveningRoutine : [OldRoutineStep] = [];
+  stable var tips : [OldTip] = [];
 
-  let tips : [Tip] = [
-    { id = 0; title = "Double Cleansing"; content = "Use an oil-based cleanser first to remove makeup and sunscreen, then follow with a water-based cleanser to remove remaining impurities."; skinType = #All },
-    { id = 1; title = "Always Use SPF"; content = "Apply SPF 30+ every morning, even on cloudy days. UV rays are the leading cause of premature aging."; skinType = #All },
-    { id = 2; title = "Hydrate, Not Moisturize"; content = "Oily skin still needs hydration. Use lightweight, water-based moisturizers to balance oil production."; skinType = #Oily },
-    { id = 3; title = "Gentle Cleansing"; content = "Avoid harsh soaps. Use a creamy or milk cleanser that won't strip your skin's natural oils."; skinType = #Dry },
-    { id = 4; title = "Zone Targeting"; content = "Use mattifying products on your T-zone and richer formulas on drier cheek areas."; skinType = #Combination },
-    { id = 5; title = "Patch Test New Products"; content = "Always patch test new skincare products on your inner wrist for 24 hours before applying to your face."; skinType = #Sensitive },
-    { id = 6; title = "Retinol Introduction"; content = "Start retinol use once a week at night and gradually increase frequency. Always follow with moisturizer."; skinType = #All },
-    { id = 7; title = "Layer Lightest to Heaviest"; content = "Apply skincare products from thinnest to thickest consistency: toners -> serums -> moisturizers -> oils."; skinType = #All },
-  ];
+  // ── Attendance system types ──
+  type AttendanceStatus = { #present; #absent; #late };
+  type LeaveStatus = { #pending; #approved; #rejected };
 
-  public shared func addProduct(name : Text, brand : Text, category : ProductCategory, notes : Text) : async Nat {
-    let id = nextProductId;
-    nextProductId += 1;
-    let product : Product = { id; name; brand; category; notes };
-    products.add(id, product);
+  type Student = {
+    id : Nat;
+    name : Text;
+    rollNumber : Text;
+    department : Text;
+    year : Nat;
+    registeredAt : Int;
+  };
+
+  type AttendanceRecord = {
+    id : Nat;
+    studentId : Nat;
+    date : Text;
+    time : Text;
+    status : AttendanceStatus;
+  };
+
+  type LeaveRequest = {
+    id : Nat;
+    studentId : Nat;
+    fromDate : Text;
+    toDate : Text;
+    reason : Text;
+    status : LeaveStatus;
+    adminNote : Text;
+  };
+
+  stable var nextStudentId : Nat = 0;
+  stable var nextAttendanceId : Nat = 0;
+  stable var nextLeaveId : Nat = 0;
+
+  stable var students : Map.Map<Nat, Student> = Map.empty<Nat, Student>();
+  stable var attendanceRecords : Map.Map<Nat, AttendanceRecord> = Map.empty<Nat, AttendanceRecord>();
+  stable var leaveRequests : Map.Map<Nat, LeaveRequest> = Map.empty<Nat, LeaveRequest>();
+
+  // Student management
+  public shared func registerStudent(name : Text, rollNumber : Text, department : Text, year : Nat) : async Nat {
+    let id = nextStudentId;
+    nextStudentId += 1;
+    students.add(id, { id; name; rollNumber; department; year; registeredAt = Time.now() });
     id;
   };
 
-  public query func getAllProducts() : async [Product] {
-    products.values().toArray();
+  public shared func removeStudent(id : Nat) : async () {
+    students.remove(id);
   };
 
-  public shared func updateProduct(id : Nat, name : Text, brand : Text, category : ProductCategory, notes : Text) : async () {
-    switch (products.get(id)) {
-      case (null) { Runtime.trap("Product not found") };
-      case (?p) { products.add(id, { p with name; brand; category; notes }) };
+  public query func getAllStudents() : async [Student] {
+    students.values().toArray();
+  };
+
+  public query func getStudent(id : Nat) : async ?Student {
+    students.get(id);
+  };
+
+  public query func findStudentByRoll(rollNumber : Text) : async ?Student {
+    for (s in students.values()) {
+      if (s.rollNumber == rollNumber) return ?s;
     };
+    null;
   };
 
-  public shared func deleteProduct(id : Nat) : async () {
-    products.remove(id);
-  };
-
-  public shared func setRoutine(routineType : RoutineType, steps : [RoutineStep]) : async () {
-    switch routineType {
-      case (#Morning) { morningRoutine := steps };
-      case (#Evening) { eveningRoutine := steps };
-    };
-  };
-
-  public query func getRoutine(routineType : RoutineType) : async [RoutineStep] {
-    switch routineType {
-      case (#Morning) { morningRoutine };
-      case (#Evening) { eveningRoutine };
-    };
-  };
-
-  public shared func addJournalEntry(date : Text, skinCondition : Nat, notes : Text, concerns : Text) : async Nat {
-    let id = nextJournalId;
-    nextJournalId += 1;
-    let entry : JournalEntry = { id; date; skinCondition; notes; concerns; createdAt = Time.now() };
-    journalEntries.add(id, entry);
+  // Attendance
+  public shared func markAttendance(studentId : Nat, date : Text, time : Text, status : AttendanceStatus) : async Nat {
+    let id = nextAttendanceId;
+    nextAttendanceId += 1;
+    attendanceRecords.add(id, { id; studentId; date; time; status });
     id;
   };
 
-  public query func getAllJournalEntries() : async [JournalEntry] {
-    journalEntries.values().toArray();
+  public query func getStudentAttendance(studentId : Nat) : async [AttendanceRecord] {
+    let result = Map.empty<Nat, AttendanceRecord>();
+    for (r in attendanceRecords.values()) {
+      if (r.studentId == studentId) result.add(r.id, r);
+    };
+    result.values().toArray();
   };
 
-  public shared func deleteJournalEntry(id : Nat) : async () {
-    journalEntries.remove(id);
+  public query func getAttendanceByDate(date : Text) : async [AttendanceRecord] {
+    let result = Map.empty<Nat, AttendanceRecord>();
+    for (r in attendanceRecords.values()) {
+      if (r.date == date) result.add(r.id, r);
+    };
+    result.values().toArray();
   };
 
-  public query func getTips() : async [Tip] {
-    tips;
+  public query func getAllAttendance() : async [AttendanceRecord] {
+    attendanceRecords.values().toArray();
+  };
+
+  // Leave requests
+  public shared func submitLeaveRequest(studentId : Nat, fromDate : Text, toDate : Text, reason : Text) : async Nat {
+    let id = nextLeaveId;
+    nextLeaveId += 1;
+    leaveRequests.add(id, { id; studentId; fromDate; toDate; reason; status = #pending; adminNote = "" });
+    id;
+  };
+
+  public shared func updateLeaveStatus(id : Nat, status : LeaveStatus, adminNote : Text) : async () {
+    switch (leaveRequests.get(id)) {
+      case (null) {};
+      case (?req) { leaveRequests.add(id, { req with status; adminNote }) };
+    };
+  };
+
+  public query func getAllLeaveRequests() : async [LeaveRequest] {
+    leaveRequests.values().toArray();
+  };
+
+  public query func getStudentLeaveRequests(studentId : Nat) : async [LeaveRequest] {
+    let result = Map.empty<Nat, LeaveRequest>();
+    for (r in leaveRequests.values()) {
+      if (r.studentId == studentId) result.add(r.id, r);
+    };
+    result.values().toArray();
   };
 };
